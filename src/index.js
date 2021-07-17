@@ -11,12 +11,12 @@ const format = (obj, depth = 1) => {
   const arr = Object.entries(obj);
   const indent = ' '.repeat(depth);
   let str = '';
-  arr.forEach(([key, val]) => {
-    if (val.status === 'changed') {
-      str += `${indent}${symbolls.removed} ${key}: ${val.value[0]}\n`;
-      str += `${indent}${symbolls.added} ${key}: ${val.value[1]}\n`;
+  arr.forEach(([key, keyValue]) => {
+    if (keyValue.status === 'changed') {
+      str += `${indent}${symbolls.removed} ${key}: ${keyValue.valueBefore}\n`;
+      str += `${indent}${symbolls.added} ${key}: ${keyValue.valueAfter}\n`;
     } else {
-      str += `${indent}${symbolls[val.status]} ${key}: ${val.value}\n`;
+      str += `${indent}${symbolls[keyValue.status]} ${key}: ${keyValue.value}\n`;
     }
   });
 
@@ -30,12 +30,10 @@ const genDiff = (dataFile1, dataFile2) => {
   const addedKeys = _.difference(Object.keys(dataFile2), Object.keys(dataFile1));
   const diffResult = {};
   commonKeys.forEach((key) => {
-    const valueBefore = dataFile1[key];
-    const valueAfter = dataFile2[key];
-    if (valueBefore === valueAfter) {
-      diffResult[key] = { status: 'unchanged', value: valueBefore };
+    if (dataFile1[key] === dataFile2[key]) {
+      diffResult[key] = { status: 'unchanged', value: dataFile1[key] };
     } else {
-      diffResult[key] = { status: 'changed', value: [valueBefore, valueAfter] };
+      diffResult[key] = { status: 'changed', valueBefore: dataFile1[key], valueAfter: dataFile2[key] };
     }
   });
   addedKeys.forEach((key) => {
@@ -44,7 +42,6 @@ const genDiff = (dataFile1, dataFile2) => {
   removedKeys.forEach((key) => {
     diffResult[key] = { status: 'removed', value: dataFile1[key] };
   });
-
   const diffSorted = Object.keys(diffResult).sort().reduce(
     (acc, key) => {
       const result = { ...acc };
@@ -52,7 +49,6 @@ const genDiff = (dataFile1, dataFile2) => {
       return result;
     }, {},
   );
-
   return diffSorted;
 };
 
