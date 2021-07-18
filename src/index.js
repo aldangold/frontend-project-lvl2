@@ -11,12 +11,12 @@ const format = (obj, depth = 1) => {
   const arr = Object.entries(obj);
   const indent = ' '.repeat(depth);
   let str = '';
-  arr.forEach(([key, keyValue]) => {
-    if (keyValue.status === 'changed') {
-      str += `${indent}${symbolls.removed} ${key}: ${keyValue.valueBefore}\n`;
-      str += `${indent}${symbolls.added} ${key}: ${keyValue.valueAfter}\n`;
+  arr.forEach(([key, valueKey]) => {
+    if (valueKey.status === 'changed') {
+      str += `${indent}${symbolls.removed} ${key}: ${valueKey.valueBefore}\n`;
+      str += `${indent}${symbolls.added} ${key}: ${valueKey.valueAfter}\n`;
     } else {
-      str += `${indent}${symbolls[keyValue.status]} ${key}: ${keyValue.value}\n`;
+      str += `${indent}${symbolls[valueKey.status]} ${key}: ${valueKey.value}\n`;
     }
   });
 
@@ -52,7 +52,7 @@ const genDiff = (dataFile1, dataFile2) => {
   return diffSorted;
 };
 
-const loadFile = (path) => {
+export const loadFile = (path) => {
   const dataFile = readFileSync(path, { encoding: 'utf8', flag: 'r' });
   const result = JSON.parse(dataFile);
   return result;
