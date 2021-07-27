@@ -9,10 +9,12 @@ const buildAst = (fileContent1, fileContent2) => {
       return { key, status: 'removed', value: array1[key] };
     }
     if (_.isObject(array1[key]) && _.isObject(array2[key])) {
-      return { key, status: 'nested', value: buildAst(array1[key], array2[key]) };
+      return { key, status: 'nested', children: buildAst(array1[key], array2[key]) };
     }
     if (array1[key] !== array2[key]) {
-      return { key, status: 'changed', value: [array1[key], array2[key]] };
+      return {
+        key, status: 'changed', value1: array1[key], value2: array2[key],
+      };
     }
     return { key, status: 'unchanged', value: array1[key] };
   };

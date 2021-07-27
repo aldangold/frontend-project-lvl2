@@ -22,7 +22,9 @@
      - baz: bas
      + baz: bars
        foo: bar
-     - nest: [object Object]
+     - nest: {
+           key: value
+       }
      + nest: str
    }
  - group2: {
