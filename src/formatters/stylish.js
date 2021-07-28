@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const symbolls = {
-  unchanged: ' ',
+  unupdated: ' ',
   added: '+',
   removed: '-',
   nested: ' ',
@@ -11,7 +11,7 @@ const indent = (depth) => ' '.repeat(depth);
 
 const unpackObject = (data) => {
   if (!_.isPlainObject(data)) return data;
-  return _.keys(data).map((key) => ({ key, status: 'unchanged', value: data[key] }));
+  return _.keys(data).map((key) => ({ key, status: 'unupdated', value: data[key] }));
 };
 
 const getString = (data, depth) => {
@@ -30,7 +30,7 @@ const renderAst = (ast, depth = 1) => {
       result.push(`${indent(depth)}${symbolls[elem.status]} ${elem.key}: {\n`);
       result.push(renderAst(unpackObject(elem.value), depth + 4));
       result.push(`${indent(depth)}  }\n`);
-    } else if (elem.status === 'changed') {
+    } else if (elem.status === 'updated') {
       result.push(`${indent(depth)}${symbolls.removed} ${elem.key}: ${getString(elem.value1, depth)}\n`);
       result.push(`${indent(depth)}${symbolls.added} ${elem.key}: ${getString(elem.value2, depth)}\n`);
     } else {
@@ -40,6 +40,4 @@ const renderAst = (ast, depth = 1) => {
   return result.join('');
 };
 
-const render = (astDiff) => `{\n${renderAst(astDiff)}}`;
-
-export default render;
+export default (astDifference) => `{\n${renderAst(astDifference)}}`;

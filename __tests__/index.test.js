@@ -2,7 +2,7 @@ import { test, expect } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import { readFileSync } from 'fs';
-import genDiff from '../src/index.js';
+import generateDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,8 +16,8 @@ test('gendif flat file ext: json, yaml', () => {
   const pathFile2Yaml = getFixturePath('file2.yml');
   const pathFileOutput = getFixturePath('file1_output');
   const dataFileOutput = readFileSync(pathFileOutput, { encoding: 'utf8', flag: 'r' });
-  expect(genDiff(pathFile1Json, pathFile2Json)).toBe(dataFileOutput);
-  expect(genDiff(pathFile1Yaml, pathFile2Yaml)).toBe(dataFileOutput);
+  expect(generateDiff(pathFile1Json, pathFile2Json)).toBe(dataFileOutput);
+  expect(generateDiff(pathFile1Yaml, pathFile2Yaml)).toBe(dataFileOutput);
 });
 
 test('gendif nested file ext: json, yaml', () => {
@@ -27,6 +27,14 @@ test('gendif nested file ext: json, yaml', () => {
   const pathFile2Yaml = getFixturePath('file4.yml');
   const pathFileOutput = getFixturePath('file2_output');
   const dataFileOutput = readFileSync(pathFileOutput, { encoding: 'utf8', flag: 'r' });
-  expect(genDiff(pathFile1Json, pathFile2Json)).toBe(dataFileOutput);
-  expect(genDiff(pathFile1Yaml, pathFile2Yaml)).toBe(dataFileOutput);
+  expect(generateDiff(pathFile1Json, pathFile2Json)).toBe(dataFileOutput);
+  expect(generateDiff(pathFile1Yaml, pathFile2Yaml)).toBe(dataFileOutput);
+});
+
+test('gendif nested file plain format', () => {
+  const pathFile1Json = getFixturePath('file3.json');
+  const pathFile2Json = getFixturePath('file4.json');
+  const pathFileOutput = getFixturePath('file3_output');
+  const dataFileOutput = readFileSync(pathFileOutput, { encoding: 'utf8', flag: 'r' });
+  expect(generateDiff(pathFile1Json, pathFile2Json, 'plain')).toBe(dataFileOutput);
 });
