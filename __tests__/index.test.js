@@ -38,3 +38,11 @@ test('gendif nested file plain format', () => {
   const dataFileOutput = readFileSync(pathFileOutput, { encoding: 'utf8', flag: 'r' });
   expect(generateDiff(pathFile1Json, pathFile2Json, 'plain')).toBe(dataFileOutput);
 });
+
+test('gendif nested file plain json', () => {
+  const pathFile1Json = getFixturePath('file3.json');
+  const pathFile2Json = getFixturePath('file4.json');
+  const pathFileOutput = getFixturePath('file4_output');
+  const dataFileOutput = readFileSync(pathFileOutput, { encoding: 'utf8', flag: 'r' });
+  expect(generateDiff(pathFile1Json, pathFile2Json, 'json')).toBe(dataFileOutput);
+});
