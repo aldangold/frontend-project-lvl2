@@ -1,43 +1,36 @@
 import _ from 'lodash';
 
-const symbolls = {
+const symbols = {
   unupdated: ' ',
   added: '+',
   removed: '-',
   nested: ' ',
 };
 
-const indent = (depth) => ' '.repeat(depth);
+const indent = 4;
+const setIndent = (depth, spaces = 2) => ' '.repeat(depth * indent - spaces);
 
-const unpackObject = (data) => {
-  if (!_.isPlainObject(data)) return data;
-  return _.keys(data).map((key) => ({ key, status: 'unupdated', value: data[key] }));
+const stringify = (value, depth) => {
+  if (!_.isObject(value)) return value;
+  return `{\n${Object.entries(value).map(([key, val]) => `${setIndent(depth)}  ${key}: ${stringify(val,
+    depth + 1)}`).join('\n')}\n${setIndent(depth - 1)}  }`;
 };
 
-const getString = (data, depth) => {
-  if (!_.isObject(data)) return data;
-  return _.keys(data).map((key) => `{\n  ${indent(depth + 4)}${key}: ${data[key]}\n  ${indent(depth)}}`);
+const renderAst = (elem, depth) => {
+  switch (elem.status) {
+    case 'added':
+    case 'removed':
+    case 'unupdated':
+      return `${setIndent(depth)}${symbols[elem.status]} ${elem.key}: ${stringify(elem.value, depth + 1)}`;
+    case 'updated':
+      return `${setIndent(depth)}${symbols.removed} ${elem.key}: ${stringify(elem.valueBefore,
+        depth + 1)}\n${setIndent(depth)}${symbols.added} ${elem.key}: ${stringify(elem.valueAfter, depth + 1)}`;
+    case 'nested':
+      return `${setIndent(depth)}${symbols[elem.status]} ${elem.key}: {\n${elem.children
+        .map((element) => renderAst(element, depth + 1)).join('\n')}\n  ${setIndent(depth)}}`;
+    default:
+      throw new Error('Unknown state!');
+  }
 };
 
-const renderAst = (ast, depth = 1) => {
-  const result = [];
-  ast.forEach((elem) => {
-    if (elem.status === 'nested') {
-      result.push(`${indent(depth)}${symbolls.nested} ${elem.key}: {\n`);
-      result.push(renderAst(elem.children, depth + 4));
-      result.push(`${indent(depth)}  }\n`);
-    } else if (_.isPlainObject(elem.value)) {
-      result.push(`${indent(depth)}${symbolls[elem.status]} ${elem.key}: {\n`);
-      result.push(renderAst(unpackObject(elem.value), depth + 4));
-      result.push(`${indent(depth)}  }\n`);
-    } else if (elem.status === 'updated') {
-      result.push(`${indent(depth)}${symbolls.removed} ${elem.key}: ${getString(elem.value1, depth)}\n`);
-      result.push(`${indent(depth)}${symbolls.added} ${elem.key}: ${getString(elem.value2, depth)}\n`);
-    } else {
-      result.push(`${indent(depth)}${symbolls[elem.status]} ${elem.key}: ${elem.value}\n`);
-    }
-  });
-  return result.join('');
-};
-
-export default (astDifference) => `{\n${renderAst(astDifference)}}`;
+export default (astDifference) => `{\n${astDifference.map((elem) => renderAst(elem, 1)).join('\n')}\n}`;

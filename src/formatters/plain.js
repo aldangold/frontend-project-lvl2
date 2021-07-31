@@ -6,29 +6,24 @@ const stringifyValue = (value) => {
   return value;
 };
 
-const renderAst = (ast, parent = '') => {
-  const result = [];
-  ast.forEach((elem) => {
-    switch (elem.status) {
-      case 'nested':
-        result.push(renderAst(elem.children, `${parent + elem.key}.`));
-        break;
-      case 'updated':
-        result.push(`Property '${parent}${elem.key}' was ${elem.status}. From ${
-          stringifyValue(elem.value1)} to ${stringifyValue(elem.value2)}`);
-        break;
-      case 'removed':
-        result.push(`Property '${parent}${elem.key}' was ${elem.status}`);
-        break;
-      case 'added':
-        result.push(`Property '${parent}${elem.key}' was ${elem.status} with value: ${
-          stringifyValue(elem.value)}`);
-        break;
-      default:
-        break;
-    }
-  });
-  return result.join('\n');
+const renderAst = (elem, parent = '') => {
+  switch (elem.status) {
+    case 'nested':
+      return elem.children.map((element) => renderAst(element, `${parent + elem.key}.`))
+        .filter((el) => el !== null).join('\n');
+    case 'updated':
+      return `Property '${parent}${elem.key}' was ${elem.status}. From ${
+        stringifyValue(elem.valueBefore)} to ${stringifyValue(elem.valueAfter)}`;
+    case 'removed':
+      return `Property '${parent}${elem.key}' was ${elem.status}`;
+    case 'added':
+      return `Property '${parent}${elem.key}' was ${elem.status} with value: ${
+        stringifyValue(elem.value)}`;
+    case 'unupdated':
+      return null;
+    default:
+      throw new Error('Unknown state!');
+  }
 };
 
-export default (astDifference) => renderAst(astDifference);
+export default (astDifference) => `${astDifference.map((elem) => renderAst(elem)).join('\n')}`;
