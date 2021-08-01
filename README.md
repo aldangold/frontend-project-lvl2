@@ -34,35 +34,8 @@
 		</p>
 	
 <h2> :rocket: Launch and demo of gendiff</h2>
-<h4> Demonstration of output of comparison results two flat files type of JSON in stylish format.</h4>
-    <p>file1.json</p>
-		<pre>
-{
-  "host": "hexlet.io",
-  "timeout": 50,
-  "proxy": "123.234.53.22",
-  "follow": false
-}
-  		</pre>
-  	<p>file2.json</p>
-	  	<pre>
-{
-  "timeout": 20,
-  "verbose": true,
-  "host": "hexlet.io"
-}
-  	</pre>
-	<pre>$gendiff -f stylish file1.json file2.json</pre>
-		<p align="center">
-		<a href="https://asciinema.org/a/eGNE66oh6hmbkeiqkjZ7p7Uyx" target="_blank"><img src="https://asciinema.org/a/eGNE66oh6hmbkeiqkjZ7p7Uyx.svg" width="80%"/></a>
-		</p>
-<h4> Demonstration of output of comparison results two flat files type of YAML in stylish format.</h4>
-	<pre>$gendiff -f stylish file1.yml file2.yml</pre>
-		<p align="center">
-		<a href="https://asciinema.org/a/mi8E3QWZFV9ZccqrPSKD71UP2" target="_blank"><img src="https://asciinema.org/a/mi8E3QWZFV9ZccqrPSKD71UP2.svg" width="80%"/></a>
-		</p>
 <h4> Demonstration of the results of comparing two files of a nested structure in accessible formats.	</h4>
-	<p>file3.json</p>
+	<p>before.json</p>
 		<pre>
 {
   "common": {
@@ -91,7 +64,7 @@
   }
 }
   		</pre>
-  	<p>file4.json</p>
+  	<p>after.json</p>
 	<pre>
 {
   "common": {
@@ -126,17 +99,17 @@
 }
   	</pre>
 	<h4> Demonstration of the output of the difference in the default format - stylish.</h4>
-	<pre>$gendiff file3.json file4.json</pre>
+	<pre>$gendiff before.json after.json</pre>
 		<p align="center">
-		<a href="https://asciinema.org/a/jWjllAB1fSCozcpF6TcjfHA0P" target="_blank"><img src="https://asciinema.org/a/jWjllAB1fSCozcpF6TcjfHA0P.svg" width="80%"/></a>
+		<a href="https://asciinema.org/a/q7Jq8eNFVlDY8RUARmYy4d6FR" target="_blank"><img src="https://asciinema.org/a/q7Jq8eNFVlDY8RUARmYy4d6FR.svg" width="80%"/></a>
 		</p>
 	<h4> Demonstration of the output of the difference in the format - plain text.</h4>
-	<pre>$gendiff -f plain file3.json file4.json</pre>
+	<pre>$gendiff -f plain before.json after.json</pre>
 		<p align="center">
-		<a href="https://asciinema.org/a/UUz3ELjOJZH9m4zIUiGFyFdys" target="_blank"><img src="https://asciinema.org/a/UUz3ELjOJZH9m4zIUiGFyFdys.svg" width="80%"/></a>
+		<a href="https://asciinema.org/a/JfMlbe8AGQhWATPNspIZLDtE9" target="_blank"><img src="https://asciinema.org/a/JfMlbe8AGQhWATPNspIZLDtE9.svg" width="80%"/></a>
 		</p>
 	<h4> Demonstration of the output of the difference in the format - JSON.</h4>
-	<pre>$gendiff -f json file3.json file4.json</pre>
+	<pre>$gendiff -f json before.json after.json</pre>
 		<p align="center">
-		<a href="https://asciinema.org/a/RroSmR0j0CaJgf85oORAUMhPV" target="_blank"><img src="https://asciinema.org/a/RroSmR0j0CaJgf85oORAUMhPV.svg" width="80%"/></a>
+		<a href="https://asciinema.org/a/PpElM277lVTky8VD1ynwx9y0i" target="_blank"><img src="https://asciinema.org/a/PpElM277lVTky8VD1ynwx9y0i.svg" width="80%"/></a>
 		</p>
