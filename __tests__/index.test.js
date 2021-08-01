@@ -8,9 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const fileExtensions = ['json', 'yml'];
-const formats = ['stylish', 'plain', 'json'];
+const formatters = ['stylish', 'plain', 'json'];
 
-const testArgs = formats.flatMap((format) => (
+const testArgs = formatters.flatMap((format) => (
   fileExtensions.map((fileExtension) => [fileExtension, format])
 ));
 
