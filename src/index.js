@@ -4,11 +4,11 @@ import parse from './parsers.js';
 import buildDifference from './builddiff.js';
 import format from './formatters/index.js';
 
-const getFileExtension = (filePath) => path.extname(filePath).substr(1);
+const getDataFormat = (filePath) => path.extname(filePath).substr(1);
 
 const getFormattedContent = (filePath) => {
   const fileData = readFileSync(filePath, { encoding: 'utf8', flag: 'r' });
-  const dataFormat = getFileExtension(filePath);
+  const dataFormat = getDataFormat(filePath);
   const parsedData = parse(fileData, dataFormat);
   return parsedData;
 };
