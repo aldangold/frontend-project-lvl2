@@ -10,14 +10,19 @@ const __dirname = dirname(__filename);
 const fileExtensions = ['json', 'yml'];
 const formatters = ['stylish', 'plain', 'json'];
 
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const stylish = readFileSync(getFixturePath('stylish'), { encoding: 'utf8', flag: 'r' });
+const plain = readFileSync(getFixturePath('plain'), { encoding: 'utf8', flag: 'r' });
+const json = readFileSync(getFixturePath('json'), { encoding: 'utf8', flag: 'r' });
+
+const output = { stylish, plain, json };
+
 const testArgs = formatters.flatMap((format) => (
   fileExtensions.map((fileExtension) => [fileExtension, format])
 ));
 
 test.each(testArgs)('%s type files difference with %s output', (fileExtension, format) => {
-  const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
   const before = getFixturePath(`before.${fileExtension}`);
   const after = getFixturePath(`after.${fileExtension}`);
-  const output = readFileSync(getFixturePath(format), { encoding: 'utf8', flag: 'r' });
-  expect(generateDiff(before, after, format)).toEqual(output);
+  expect(generateDiff(before, after, format)).toEqual(output[format]);
 });
