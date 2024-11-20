@@ -1,17 +1,17 @@
-<h2 align="center"> Frontend-project-lvl2 </h2>
+<h2 align="center"> Gen difference </h2>
 
 <div align="center">
-	<a href="https://github.com/aldangold/frontend-project-lvl2/actions">
-		<img src="https://github.com/aldangold/frontend-project-lvl2/workflows/hexlet-check/badge.svg" />
+	<a href="https://github.com/meloshnikov/qa-auto-engineer-javascript-project-87/actions">
+		<img src="https://github.com/meloshnikov/qa-auto-engineer-javascript-project-87/workflows/hexlet-check/badge.svg" />
 	</a>
-    <a href="https://github.com/aldangold/frontend-project-lvl2/actions">
-		<img src="https://github.com/aldangold/frontend-project-lvl2/workflows/linter-check/badge.svg" />
+  <a href="https://github.com/meloshnikov/qa-auto-engineer-javascript-project-87/actions">
+		<img src="https://github.com/meloshnikov/qa-auto-engineer-javascript-project-87/workflows/project-check/badge.svg" />
 	</a>
-    <a href="https://codeclimate.com/github/aldangold/frontend-project-lvl2/maintainability">
-		<img src="https://api.codeclimate.com/v1/badges/c3437eac888495324b3f/maintainability" />
+  <a href="https://codeclimate.com/github/meloshnikov/qa-auto-engineer-javascript-project-87/maintainability">
+    <img src="https://api.codeclimate.com/v1/badges/2247c6948adc4c239b3d/maintainability" />
 	</a>
-	<a href="https://codeclimate.com/github/aldangold/frontend-project-lvl2/test_coverage">
-	<img src="https://api.codeclimate.com/v1/badges/c3437eac888495324b3f/test_coverage" />
+	<a href="https://codeclimate.com/github/meloshnikov/qa-auto-engineer-javascript-project-87/test_coverage">
+    <img src="https://api.codeclimate.com/v1/badges/2247c6948adc4c239b3d/test_coverage" />
 	</a>
 </div>
 
@@ -24,7 +24,7 @@
 		  <li> 
 		  	<p>Installation</p>
 		  	</li>
-		  	<pre>$git clone https://github.com/aldangold/frontend-project-lvl2.git</br>$make install</pre>
+		  	<pre>$git clone https://github.com/meloshnikov/qa-auto-engineer-javascript-project-87.git</br>$make install</pre>
 		  <li> <p>Check of launch </p>
 		  	</li>
 		  	<pre>$npx gendiff</pre>

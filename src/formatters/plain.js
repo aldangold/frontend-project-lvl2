@@ -26,4 +26,4 @@ const renderAst = (elem, parent = '') => {
   }
 };
 
-export default (astDifference) => `${astDifference.map((elem) => renderAst(elem)).join('\n')}`;
+export default (astDifference) => `${astDifference.map((elem) => renderAst(elem)).filter((el) => el !== null).join('\n')}`;
